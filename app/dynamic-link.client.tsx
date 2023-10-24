@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {useState} from "react";
 
-export function DynamicLink({list: rawList}) {
+export function DynamicLink({list: rawList}:{list:string[]}) {
     const [selected, setSelected] = useState('')
     return (<li>
         <label htmlFor={'cat'}>Select a category</label>
