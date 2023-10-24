@@ -1,11 +1,13 @@
 import Link from "next/link";
 import {DynamicLink} from "@/app/dynamic-link.client";
+import {Suspense} from "react";
 
 export default async function Home() {
-    const prom = await fetch('http://localhost:3001/api/all')
+    const prom = await fetch('ts-syntax-api.vercel.app/api/all')
     const {all} = await prom.json()
 
     const rawList = Object.keys(all).map(c => c)
+
 
     return (
         <main>
@@ -17,7 +19,9 @@ export default async function Home() {
                     associated hash code</Link></li>
                 <li><Link href={'/api/all'}><code>/api/all</code> : All tokens by category</Link></li>
                 <li><Link href={'/api/all'}><code>/api/all</code> : All tokens by category</Link></li>
-                <DynamicLink list={rawList}/>
+                <Suspense fallback={<p>fetching data...</p>}>{
+                    rawList && <DynamicLink list={rawList}/>
+                }</Suspense>
             </ul>
 
         </main>
